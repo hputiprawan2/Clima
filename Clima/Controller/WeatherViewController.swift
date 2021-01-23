@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionImageView: UIImageView!
@@ -14,16 +15,26 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     
     var weatherManager = WeatherManager()
+    let locationManager = CLLocationManager() // manage get current location
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        weatherManager.delegate = self
+        
+        locationManager.delegate = self // * need to set delegate before request location
+        locationManager.requestWhenInUseAuthorization() // pop-up on screen ask user to use current location; ** Need to add Privacy - Location When In Use Usage Description in Info.plist
+        locationManager.requestLocation() // get current location when didUpdateLocation buildin got trigger
+        
         searchTextField.delegate = self // searchTextField should report back to this self view
+        weatherManager.delegate = self
+        
+    }
+    @IBAction func currentLocationPressed(_ sender: UIButton) {
+        searchTextField.endEditing(true)
+        locationManager.requestLocation()
     }
 }
 
 // MARK: - UITextFieldDelegate
-
 extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchBtPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -71,6 +82,22 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
     
     func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.stopUpdatingLocation()
+        if let locations = locations.last {
+            let lat = locations.coordinate.latitude
+            let lon = locations.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 }
