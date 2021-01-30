@@ -97,11 +97,27 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ti-bh-8Fw">
-                                        <rect key="frame" x="134" y="355.5" width="240" height="462.5"/>
+                                        <rect key="frame" x="134" y="355.5" width="240" height="412.5"/>
                                     </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="b6V-DL-g6v">
+                                        <rect key="frame" x="274" y="778" width="100" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="lSC-zh-Uqa"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="tvh-Bq-ht8"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="F"/>
+                                            <segment title="C"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="unitTogglePressed:" destination="BYZ-38-t0r" eventType="valueChanged" id="4ii-Li-Pt3"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="b6V-DL-g6v" secondAttribute="bottom" id="2Kr-kQ-a4S"/>
                                     <constraint firstAttribute="trailing" secondItem="Tgv-vV-Mot" secondAttribute="trailing" id="Xxe-YD-sFY"/>
+                                    <constraint firstAttribute="trailing" secondItem="b6V-DL-g6v" secondAttribute="trailing" id="YMk-N6-PXz"/>
                                     <constraint firstItem="Tgv-vV-Mot" firstAttribute="leading" secondItem="Wz9-jj-JbA" secondAttribute="leading" id="zMA-9O-gQ7"/>
                                 </constraints>
                             </stackView>

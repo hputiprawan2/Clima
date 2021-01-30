@@ -32,6 +32,8 @@ class WeatherViewController: UIViewController {
         searchTextField.endEditing(true)
         locationManager.requestLocation()
     }
+    @IBAction func unitTogglePressed(_ sender: UISegmentedControl) {
+    }
 }
 
 // MARK: - UITextFieldDelegate
